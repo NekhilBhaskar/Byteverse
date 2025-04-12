@@ -10,6 +10,9 @@ import { toast } from 'sonner';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLoading, setUser } from '@/redux/authSlice';
 import { Loader2 } from 'lucide-react';
+//import {ForgotPassword} from './forgotPassword';
+
+
 
 const Login = () => {
     const [input, setInput] = useState({
@@ -71,7 +74,7 @@ const Login = () => {
                             name="email"
                             value={input.email}
                             onChange={changeEventHandler}
-                            placeholder="patel@gmail.com"
+                            
                             required
                         />
                     </div>
@@ -83,7 +86,7 @@ const Login = () => {
                             name="password"
                             value={input.password}
                             onChange={changeEventHandler}
-                            placeholder="••••••••"
+                            
                             required
                         />
                     </div>
@@ -132,6 +135,7 @@ const Login = () => {
                             Signup
                         </Link>
                     </p>
+                    
                 </form>
             </div>
         </div>

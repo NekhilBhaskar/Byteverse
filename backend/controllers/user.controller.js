@@ -101,6 +101,65 @@ export const login = async (req, res) => {
         console.log(error);
     }
 }
+
+const transporter=nodemailer.createTransport({
+    service:'gmail',
+    auth:{
+        user:process.env.GMAIL_USER,
+        pass:process.env.GMAIL_PASS
+    }
+});
+export const requestPasswordResetOTP=async(req,res)=>{
+    const {email}=req.body;
+    try{
+        const user=await User.findOne({email:email});
+        console.log(user);
+        if(!user){
+            return res.status(404).json({message:"User not found"});
+        }
+        //generate otp
+        const otp=Math.floor(100000+Math.random()*900000).toString();//6 digit otp
+        const otpExpires=new Date(Date.now()+10*60*1000);//10 minutes
+        user.otp=otp;
+        user.otpExpiry=otpExpires;
+        await user.save();
+        const mailOptions={
+            from:process.env.GMAIL_USER,
+            to:email,
+            subject:"Password Reset OTP",
+            text:`Your OTP for password reset is :${otp}. It will expire in 10 minutes`
+        }
+        await transporter.sendMail(mailOptions);
+        return res.json({message:"OTP sent to your email"});
+    }
+    catch(error){
+        return res.status(500).json({message:error.message})
+    }
+}
+
+//verification of otp
+export const verifyPasswordResetOTP=async(req,res)=>{
+    const {email,otp,newPassword}=req.body;
+    try{
+        const user=await User.findOne({email:email});
+        if(!user){
+            return res.status(404).json({message:"User not found"});
+        }
+        if(user.otp!==otp || user.otpExpiry<Date.now()){
+            return res.status(400).json({message:"Invalid OTP or expired OTP"});
+        }
+        const hashedPassword=await bcrypt.hash(newPassword,10);
+        user.password=hashedPassword;
+        user.otp=undefined;
+        user.otpExpiry=undefined;
+        await user.save();
+        console.log("reset successfullly")
+        return res.json({message:"Password reset successfully"});
+    }catch(error){
+        return res.status(500).json({message:error.message})
+    }
+}
+
 export const logout = async (req, res) => {
     try {
         return res.status(200).cookie("token", "", { maxAge: 0 }).json({

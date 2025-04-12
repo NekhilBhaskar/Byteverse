@@ -88,7 +88,6 @@ const Signup = () => {
                             name="fullname"
                             value={input.fullname}
                             onChange={changeEventHandler}
-                            placeholder="Bhaskar"
                             required
                         />
                     </div>
@@ -100,7 +99,6 @@ const Signup = () => {
                             name="email"
                             value={input.email}
                             onChange={changeEventHandler}
-                            placeholder="nekhilbhakar12321@gmail.com"
                             required
                         />
                     </div>
@@ -112,7 +110,6 @@ const Signup = () => {
                             name="phoneNumber"
                             value={input.phoneNumber}
                             onChange={changeEventHandler}
-                            placeholder="8080808080"
                             required
                         />
                     </div>
@@ -124,7 +121,6 @@ const Signup = () => {
                             name="password"
                             value={input.password}
                             onChange={changeEventHandler}
-                            placeholder="••••••••"
                             required
                         />
                     </div>
