@@ -29,7 +29,7 @@ git clone https://github.com/NekhilBhaskar/Byteverse.git
 cd Byteverse-JobPortal
 cd frontend
 npm install
-npm start
+npm run dev
 
 cd backend
 npm install
