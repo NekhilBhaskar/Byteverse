@@ -30,7 +30,7 @@ const HeroSection = () => {
         </h1>
 
         <p className="text-gray-600 text-sm sm:text-base px-2 sm:px-6">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid aspernatur temporibus nihil tempora dolor!
+        Revolutionizing recruitment by bridging the gap between talent and industry leaders — because finding the right job should be simple, seamless, and stress-free.
         </p>
 
         {/* Search bar */}
